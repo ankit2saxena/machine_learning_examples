@@ -1,6 +1,7 @@
+# https://deeplearningcourses.com/c/artificial-intelligence-reinforcement-learning-in-python
+# https://www.udemy.com/artificial-intelligence-reinforcement-learning-in-python
 import numpy as np
-import matplotlib.pyplot as plt
-from grid_world import Grid, standard_grid, negative_grid
+from grid_world import standard_grid, negative_grid
 from iterative_policy_evaluation import print_values, print_policy
 
 SMALL_ENOUGH = 10e-4
@@ -40,9 +41,9 @@ if __name__ == '__main__':
       # terminal state
       V[s] = 0
 
-  # repeat until convergence - will break out when policy does not change
+  # repeat until convergence
+  # V[s] = max[a]{ sum[s',r] { p(s',r|s,a)[r + gamma*V[s']] } }
   while True:
-
     biggest_change = 0
     for s in states:
       old_v = V[s]
@@ -76,6 +77,7 @@ if __name__ == '__main__':
         best_a = a
     policy[s] = best_a
 
+  # our goal here is to verify that we get the same answer as with policy iteration
   print "values:"
   print_values(V, grid)
   print "policy:"

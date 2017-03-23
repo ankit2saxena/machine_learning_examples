@@ -70,7 +70,7 @@ def main():
     # softmax_cross_entropy_with_logits take in the "logits"
     # if you wanted to know the actual output of the neural net,
     # you could pass "Yish" into tf.nn.softmax(logits)
-    cost = tf.reduce_sum(tf.nn.softmax_cross_entropy_with_logits(Yish, T))
+    cost = tf.reduce_sum(tf.nn.softmax_cross_entropy_with_logits(logits=Yish, labels=T))
 
     # we choose the optimizer but don't implement the algorithm ourselves
     # let's go with RMSprop, since we just learned about it.
@@ -80,8 +80,8 @@ def main():
     # we'll use this to calculate the error rate
     predict_op = tf.argmax(Yish, 1)
 
-    LL = []
-    init = tf.initialize_all_variables()
+    costs = []
+    init = tf.global_variables_initializer()
     with tf.Session() as session:
         session.run(init)
 
@@ -96,9 +96,9 @@ def main():
                     prediction = session.run(predict_op, feed_dict={X: Xtest})
                     err = error_rate(prediction, Ytest)
                     print "Cost / err at iteration i=%d, j=%d: %.3f / %.3f" % (i, j, test_cost, err)
-                    LL.append(test_cost)
+                    costs.append(test_cost)
 
-    plt.plot(LL)
+    plt.plot(costs)
     plt.show()
     # increase max_iter and notice how the test cost starts to increase.
     # are we overfitting by adding that extra layer?

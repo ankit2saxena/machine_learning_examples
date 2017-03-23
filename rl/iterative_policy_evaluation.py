@@ -1,6 +1,7 @@
+# https://deeplearningcourses.com/c/artificial-intelligence-reinforcement-learning-in-python
+# https://www.udemy.com/artificial-intelligence-reinforcement-learning-in-python
 import numpy as np
-import matplotlib.pyplot as plt
-from grid_world import Grid, standard_grid
+from grid_world import standard_grid
 
 SMALL_ENOUGH = 10e-4 # threshold for convergence
 
@@ -67,6 +68,7 @@ if __name__ == '__main__':
 
     if biggest_change < SMALL_ENOUGH:
       break
+  print "values for uniformly random actions:"
   print_values(V, grid)
   print "\n\n"
 
@@ -108,4 +110,5 @@ if __name__ == '__main__':
 
     if biggest_change < SMALL_ENOUGH:
       break
+  print "values for fixed policy:"
   print_values(V, grid)
